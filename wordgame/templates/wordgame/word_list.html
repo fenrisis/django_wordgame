@@ -1,0 +1,12 @@
+<h2>{{ dictionary.name }}</h2>
+<p>{{ dictionary.description }}</p>
+
+{% for word in words %}
+  <div>
+    <span>{{ word.word }}</span>
+    <span>{{ word.translation }}</span>
+    <span>{{ word.points }}</span>
+  </div>
+{% empty %}
+  <p>No words found.</p>
+{% endfor %}

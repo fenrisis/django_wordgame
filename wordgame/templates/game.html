@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game</title>
+    
+</head>
+<body>
+    <h1>Word Game</h1>
+    <form id="game-form" method="POST">
+        {% csrf_token %}
+        <label for="user_input">Translate this word: {{ word_to_translate }}</label>
+        <input type="text" id="user_input" name="user_input" required>
+        <button type="submit">Submit</button>
+    </form>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#game-form').submit(function(event) {
+                event.preventDefault();
+                var user_input = $('#user_input').val();
+
+                // Make an AJAX POST request to play the game
+                $.ajax({
+                    url: '{% url "play_game" dictionary_id=dictionary.id %}',
+                    type: 'POST',
+                    data: {
+                        'user_input': user_input,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function(response) {
+                        // Display the game result
+                        $('#game-result').text('Game Result: ' + response.result);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

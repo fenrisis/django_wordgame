@@ -1,0 +1,5 @@
+{% for dictionary in dictionaries %}
+  <h2>{{ dictionary.name }}</h2>
+  <p>{{ dictionary.description }}</p>
+  <a href="{% url 'word_list' dictionary.id %}">View Words</a>
+{% endfor %}
